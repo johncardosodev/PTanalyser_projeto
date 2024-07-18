@@ -1,0 +1,118 @@
+{% extends 'base.html'%} <!-- This is a template inheritance statement -->
+{% block content %} <!-- This is a block content statement -->
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <form action="/queryUser" method="POST">
+                <div class="input-group mb-3">
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary" type="submit">Executar query</button>
+                    </div>
+                    <textarea class="form-control" name="query" placeholder="" aria-label=""
+                        aria-describedby="basic-addon1" rows="4"></textarea>
+                </div>
+                <div class="container">
+                    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample"
+                        aria-expanded="false" aria-controls="collapseExample">
+                        Exemplos de queries
+                    </button>
+                    <div class="collapse" id="collapseExample">
+                        <div class="card card-body">
+                            <h6>Saber informaçao de uma especifica empresa: </h6>
+                            <p>SELECT * FROM empresa WHERE nome Like '%farfetch%'</p>
+                            <h6>Contar quantas empresas existem</h6>
+                            <p>SELECT Count(*) FROM bdptanalyser.tecnologias_has_empresa;</p>
+                            <h6>Saber quais tecnolodias empresa usa</h6>
+                            <p>SELECT empresa.nome,tecnologias.nome FROM bdptanalyser.tecnologias_has_empresa INNER JOIN
+                                empresa ON
+                                empresa.id=tecnologias_has_empresa.empresa_id INNER JOIN tecnologias ON
+                                tecnologias.id=tecnologias_has_empresa.tecnologias_id WHERE empresa.nome='farfetch';</p>
+                            <h6>Empresa com o maior salario:</h6>
+                            <p>SELECT e.nome AS Nome_Empresa, MAX(CAST(REPLACE(REPLACE(SUBSTRING_INDEX(e.salario_medio,
+                                '€ - ', -1),
+                                '€', ''), '.', '') AS UNSIGNED)) AS Maior_Salario FROM empresa e WHERE e.salario_medio
+                                != 'Ainda sem
+                                dados' AND CAST(REPLACE(REPLACE(SUBSTRING_INDEX(e.salario_medio, '€ - ', -1), '€', ''),
+                                '.', '') AS
+                                UNSIGNED) = (SELECT MAX(CAST(REPLACE(REPLACE(SUBSTRING_INDEX(salario_medio, '€ - ', -1),
+                                '€', ''),
+                                '.', '') AS UNSIGNED)) FROM empresa WHERE salario_medio != 'Ainda sem dados') GROUP BY
+                                e.nome;</p>
+                            <h6>Quais empresas usam a tecnologia python</h6>
+                            <p>SELECT empresa.nome,tecnologias.nome FROM bdptanalyser.tecnologias_has_empresa INNER JOIN
+                                tecnologias
+                                ON tecnologias.id=tecnologias_has_empresa.tecnologias_id INNER JOIN empresa on
+                                empresa.id=tecnologias_has_empresa.empresa_id WHERE tecnologias.nome='python'</p>
+                            <h6>Maior taxa de recomendaçao de trabalhadores: </h6>
+                            <p>SELECT * FROM bdptanalyser.empresa order by taxa_recomendacao DESC;</p>
+                            <h6>Empresas com maior difficuldade nas entrevistas de emprego</h6>
+                            <p>SELECT * FROM bdptanalyser.empresa order by dificuldade DESC;</p>
+                            <h6>Empresas com maior carga horaria: </h6>
+                            <p>SELECT nome, horas_trabalho, salario_medio FROM empresa WHERE horas_trabalho != 'Ainda
+                                sem dados'
+                                ORDER BY STR_TO_DATE(horas_trabalho, '%H:%i') DESC;</p>
+
+
+
+                        </div>
+                    </div>
+                    <a href="https://pt.teamlyzer.com/companies/farfetch">Empresa modelo</a>
+                    <label for="toggle">Ver relaçoes</label>
+                    <input type="checkbox" id="toggle" class="toggle-checkbox">
+                    <img id="myImage" src="static/RelacoesPTAnalyzer.PNG" alt="Your Image">
+
+                </div>
+
+
+
+
+                <style>
+                    #myImage {
+                        display: none;
+                    }
+
+                    .toggle-checkbox:checked~#myImage {
+                        display: block;
+                    }
+                </style>
+
+
+
+            </form>
+
+
+        </div>
+    </div>
+</div>
+<div class="container mt-4">
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                {% if column_names %}
+                {% for col_name in column_names %}
+                <th>{{ col_name }}</th>
+                {% endfor %}
+                {% endif %}
+            </tr>
+        </thead>
+        <tbody>
+            {% if table %}
+            {% for row in table %}
+            <tr>
+                {% for value in row %}
+                <td>{{ value }}</td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+            {% else %}
+
+            {% endif %}
+        </tbody>
+    </table>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

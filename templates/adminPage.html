@@ -1,0 +1,73 @@
+{% extends 'base.html'%} <!-- This is a template inheritance statement -->
+{% block content %} <!-- This is a block content statement -->
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <p class="text-left">Apagar empresa especifica na base de dados</p>
+        </div>
+        <div class="col-md-9">
+            <form method="POST" action="/adminPage">
+                <div class="form-row align-items-center">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="deleteInputField" name="deleteInputField" placeholder="/companies/empresa">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-danger">Apagar</button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+    </div>
+</div>
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-3">
+            <p class="text-left">Adicionar empresa especifica na base de dados</p>
+        </div>
+        <div class="col-md-9">
+            <form method="POST" action="/adminPage">
+                <div class="form-row align-items-center">
+                    <div class="col-md-8">
+                        <input type="text" class="form-control" id="addInputField" name="addInputField" placeholder="/companies/empresa">
+                    </div>
+                    <div class="col-md-4">
+                        <button type="submit" class="btn btn-success">Adicionar</button>
+                    </div>
+                </div>
+            </form>
+            
+        </div>
+        {% if message %}
+                <div class="alert alert-success mt-3">
+                    {{ message }}
+                </div>
+            {% endif %}
+    </div>
+</div>
+
+<div class="container">
+    <div class="row align-items-center">
+        <div class="col-md-12">
+            <form method="POST" action="/adminPage" class="form-inline">
+                <p class="text-left" >Adicionar empresas através de um intervalo <a href="https://pt.teamlyzer.com/companies/">teamlyzer.com</a></p>
+                <div class="form-group mb-2">
+                    <label for="inputField1" class="sr-only">Input 1</label>
+                    <input type="text" class="form-control" id="inputField1" name="inputField1" placeholder="Pagina a começar">
+                </div>
+                <div class="form-group mx-sm-3 mb-2">
+                    <label for="inputField2" class="sr-only">Input 2</label>
+                    <input type="text" class="form-control" id="inputField2" name="inputField2" placeholder="Pagina a terminar">
+                </div>
+                <button type="submit" class="btn btn-success mb-2">Adicionar</button>
+            </form>
+        </div>
+        {% if message2 %}
+                <div class="alert alert-success mt-3">
+                    {{ message2 }}
+                </div>
+            {% endif %}
+    </div>
+</div>
+
+{% endblock %} <!-- This is an end block statement -->
