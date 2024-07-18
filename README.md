@@ -48,6 +48,16 @@ After running the application, navigate to `http://localhost:5000` in your web b
 - To execute SQL queries, login and navigate to `http://localhost:5000/queryUser`.
 - To manage companies, login as an admin and navigate to `http://localhost:5000/adminPage`.
 
-## Note
+## Images
+
+### Front-end
+![image](https://github.com/user-attachments/assets/bb91a6a6-ffed-48b1-81df-f2f620e268f1)
+
+### DataBase relationship
+![image](https://github.com/user-attachments/assets/1ed9252f-62f9-48e0-b102-28fe1e1f835d)
+
+
+
+
 
 This application is for educational purposes only. Please ensure you have the necessary permissions before scraping or accessing data.
